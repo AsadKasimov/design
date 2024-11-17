@@ -14,7 +14,7 @@
         <div class="text-center">
             {% if request.user.is_authenticated %}
                 <p class="mb-3 fs-5 text-primary">Привет, <strong>{{ request.user.username }}!</strong></p>
-                <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">Выход</a><br>
+                <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">Выход</a><p></p>
                 <a href="{% url 'product_list' %}" class="btn btn-outline-danger btn-sm">Учет товара в складе</a>
 
             {% else %}
