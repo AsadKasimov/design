@@ -6,7 +6,9 @@ from .models import Product
 from django.shortcuts import render, redirect
 from .forms import ProductForm
 from django.shortcuts import get_object_or_404
-
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from .forms import ProductForm
 
 # Create your views here.
 # Home page
@@ -54,11 +56,15 @@ def product_list(request):
 
 
 
+
+
 def product_create(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
             form.save()
+            # Уведомление о успешном добавлении товара
+            messages.success(request, 'Товар успешно добавлен!')
             return redirect('product_list')
     else:
         form = ProductForm()
