@@ -1,14 +1,15 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import UserCreationForm, LoginForm
-from django.shortcuts import render
 from .models import Product
-from django.shortcuts import render, redirect
-from .forms import ProductForm
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from .forms import ProductForm
+from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+import csv
+
 
 # Create your views here.
 # Home page
@@ -89,3 +90,27 @@ def product_delete(request, pk):
         product.delete()
         return redirect('product_list')
     return render(request, 'product_confirm_delete.html', {'product': product})
+
+
+
+
+# Отчет в формате HTML
+def user_report(request):
+    users = User.objects.all().order_by('-date_joined')  # Все пользователи, сортировка по дате регистрации
+    return render(request, 'reports/user_report.html', {'users': users})
+
+# Отчет в формате CSV
+def user_report_csv(request):
+    # Создание HTTP-ответа с заголовком для загрузки CSV
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="user_report.csv"'
+
+    # Создание объекта записи в CSV
+    writer = csv.writer(response)
+    writer.writerow(['Username', 'Email', 'Date Joined', 'Is Staff'])
+
+    # Добавление данных пользователей в CSV
+    for user in User.objects.all().order_by('-date_joined'):
+        writer.writerow([user.username, user.email, user.date_joined, user.is_staff])
+
+    return response

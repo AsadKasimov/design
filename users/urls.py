@@ -10,4 +10,6 @@ urlpatterns = [
     path('create/', views.product_create, name='product_create'),
     path('update/<int:pk>/', views.product_update, name='product_update'),
     path('delete/<int:pk>/', views.product_delete, name='product_delete'),
+    path('report/users/', views.user_report, name='user_report'),
+    path('report/users/csv/', views.user_report_csv, name='user_report_csv'),
 ]

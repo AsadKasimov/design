@@ -14,8 +14,10 @@
         <div class="text-center">
             {% if request.user.is_authenticated %}
                 <p class="mb-3 fs-5 text-primary">Привет, <strong>{{ request.user.username }}!</strong></p>
-                <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">Выход</a><p></p>
-                <a href="{% url 'product_list' %}" class="btn btn-outline-danger btn-sm">Учет товара в складе</a>
+                <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">Выход</a><hi>
+                <a href="{% url 'product_list' %}" class="btn btn-outline-danger btn-sm">Учет товара в складе</a><hi>
+                <a href="{% url 'user_report' %}" class="btn btn-outline-danger btn-sm">Отчет о пользователях</a><hi>
+                <a href="{% url 'user_report_csv' %}" class="btn btn-outline-danger btn-sm">Скачать отчет о пользователях</a><hi>
 
             {% else %}
                 <a href="{% url 'login' %}" class="btn btn-primary btn-sm me-2">Вход</a>
